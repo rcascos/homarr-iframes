@@ -151,6 +151,7 @@ func (v *Vikunja) GetiFrame(c *gin.Context) {
 		showDue          bool
 		showPriority     bool
 		showProject      bool
+		showCompact      bool
 		ShowFavoriteIcon bool
 	)
 	showCreatedStr := c.Query("showCreated")
@@ -193,6 +194,16 @@ func (v *Vikunja) GetiFrame(c *gin.Context) {
 			return
 		}
 	}
+	showCompactStr := c.Query("showCompact")
+	if showCompactStr == "" {
+		showCompact = false
+	} else {
+		showCompact, err = strconv.ParseBool(showCompactStr)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"message": "showCompact must be a boolean"})
+			return
+		}
+	}
 
 	ShowFavoriteIconStr := c.Query("showFavoriteIcon")
 	if ShowFavoriteIconStr == "" {
@@ -222,7 +233,7 @@ func (v *Vikunja) GetiFrame(c *gin.Context) {
 		}
 		html = sources.GetBaseNothingToShowiFrame("#226fff", v.BackgroundImgURL, "center", "cover", backgroundFilter, apiURLPath)
 	} else {
-		html, err = v.getTasksiFrame(tasks, theme, v.BackgroundImgURL, backgroundPosition, backgroundSize, backgroundFilter, apiURL, limit, projectID, queryExcludeProjectIDs, showCreated, showDue, showPriority, showProject, ShowFavoriteIcon)
+		html, err = v.getTasksiFrame(tasks, theme, v.BackgroundImgURL, backgroundPosition, backgroundSize, backgroundFilter, apiURL, limit, projectID, queryExcludeProjectIDs, showCreated, showDue, showPriority, showProject, showCompact, ShowFavoriteIcon)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 			return
@@ -232,7 +243,7 @@ func (v *Vikunja) GetiFrame(c *gin.Context) {
 	c.Data(http.StatusOK, "text/html", []byte(html))
 }
 
-func (v *Vikunja) getTasksiFrame(tasks []*Task, theme, backgroundImgURL, backgroundPosition, backgroundSize, backgroundFilter, apiURL string, limit, projectID int, excludeProjectIDs string, showCreated, showDue, showPriority, showProject, showFavoriteIcon bool) ([]byte, error) {
+func (v *Vikunja) getTasksiFrame(tasks []*Task, theme, backgroundImgURL, backgroundPosition, backgroundSize, backgroundFilter, apiURL string, limit, projectID int, excludeProjectIDs string, showCreated, showDue, showPriority, showProject, showCompact, showFavoriteIcon bool) ([]byte, error) {
 	html := `
 <!doctype html>
 <html lang="en">
@@ -280,6 +291,11 @@ func (v *Vikunja) getTasksiFrame(tasks []*Task, theme, backgroundImgURL, backgro
 
             border-radius: 10px;
             border: 1px solid rgba(56, 58, 64, 1);
+        }
+
+        .tasks-container.tasks-container-compact {
+            height: 46px;
+            margin-bottom: 3px;
         }
 
         .background-image {
@@ -455,7 +471,7 @@ func (v *Vikunja) getTasksiFrame(tasks []*Task, theme, backgroundImgURL, backgro
 </head>
 <body>
 {{ range .Tasks }}
-    <div class="tasks-container">
+    <div class="tasks-container {{ if $.ShowCompact }}tasks-container-compact{{ end }}">
 
         <div class="background-image"></div>
 
@@ -551,6 +567,7 @@ func (v *Vikunja) getTasksiFrame(tasks []*Task, theme, backgroundImgURL, backgro
 		ShowDue:                       showDue,
 		ShowPriority:                  showPriority,
 		ShowProject:                   showProject,
+		ShowCompact:                   showCompact,
 		ShowFavoriteIcon:              showFavoriteIcon,
 	}
 
@@ -627,6 +644,7 @@ type iframeTemplateData struct {
 	ShowDue                       bool
 	ShowPriority                  bool
 	ShowProject                   bool
+	ShowCompact                   bool
 	ShowFavoriteIcon              bool
 	APILimit                      int
 	APIProjectID                  int

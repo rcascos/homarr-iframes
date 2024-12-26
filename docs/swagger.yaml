@@ -14,199 +14,215 @@ info:
 paths:
   /hash/alarms:
     get:
-      description: Get the hash of the alarms. Used by the iFrames to check updates
+      description:
+        Get the hash of the alarms. Used by the iFrames to check updates
         and reload the iframe.
       parameters:
-      - description: Limits the number of items in the iFrame.
-        example: 5
-        in: query
-        name: limit
-        type: integer
-      - description: 'Alarms to show. Available values: netdata, radarr, sonarr, prowlarr,
-          speedtest-tracker, pihole, kavita, kaizoku'
-        example: netdata,radarr,sonarr
-        in: query
-        name: alarms
-        required: true
-        type: string
-      - description: Sort alarms in descending order. Defaults to false.
-        example: false
-        in: query
-        name: sort_desc
-        type: boolean
+        - description: Limits the number of items in the iFrame.
+          example: 5
+          in: query
+          name: limit
+          type: integer
+        - description:
+            "Alarms to show. Available values: netdata, radarr, sonarr, prowlarr,
+            speedtest-tracker, pihole, kavita, kaizoku"
+          example: netdata,radarr,sonarr
+          in: query
+          name: alarms
+          required: true
+          type: string
+        - description: Sort alarms in descending order. Defaults to false.
+          example: false
+          in: query
+          name: sort_desc
+          type: boolean
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/routes.hashResponse'
+            $ref: "#/definitions/routes.hashResponse"
       summary: Get the hash of the alarms
   /hash/cinemark:
     get:
-      description: Get the hash of the Cinemark movies. Used by the iFrames to check
+      description:
+        Get the hash of the Cinemark movies. Used by the iFrames to check
         updates and reload the iframe.
       parameters:
-      - description: 'The theater IDs to get movies from. It used to be easy to get,
-          but now it''s harder. To get it, you need to access the cinemark site, select
-          a theater, open your browser developer console, go to the '
-        example: 715, 1222, 4555
-        in: query
-        name: theaterIds
-        required: true
-        type: string
-      - description: Limits the number of items in the iFrame.
-        example: 5
-        in: query
-        name: limit
-        type: integer
+        - description:
+            "The theater IDs to get movies from. It used to be easy to get,
+            but now it's harder. To get it, you need to access the cinemark site, select
+            a theater, open your browser developer console, go to the "
+          example: 715, 1222, 4555
+          in: query
+          name: theaterIds
+          required: true
+          type: string
+        - description: Limits the number of items in the iFrame.
+          example: 5
+          in: query
+          name: limit
+          type: integer
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/routes.hashResponse'
+            $ref: "#/definitions/routes.hashResponse"
       summary: Get the hash of the Cinemark movies
   /hash/linkwarden:
     get:
-      description: Get the hash of the Linkwarden bookmarks. Used by the iFrames to
+      description:
+        Get the hash of the Linkwarden bookmarks. Used by the iFrames to
         check updates and reload the iframe.
       parameters:
-      - description: Get bookmarks only from this collection. You can get the collection
-          ID by going to the collection page. The ID should be on the URL. The ID
-          of the default collection **Unorganized** is 1 because the URL is https://domain.com/collections/1.
-        example: 1
-        in: query
-        name: collectionId
-        type: integer
-      - description: Limits the number of items in the iFrame.
-        example: 5
-        in: query
-        name: limit
-        type: integer
+        - description:
+            Get bookmarks only from this collection. You can get the collection
+            ID by going to the collection page. The ID should be on the URL. The ID
+            of the default collection **Unorganized** is 1 because the URL is https://domain.com/collections/1.
+          example: 1
+          in: query
+          name: collectionId
+          type: integer
+        - description: Limits the number of items in the iFrame.
+          example: 5
+          in: query
+          name: limit
+          type: integer
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/routes.hashResponse'
+            $ref: "#/definitions/routes.hashResponse"
       summary: Get the hash of the Linkwarden bookmarks
   /hash/media_releases:
     get:
-      description: Get the hash of the media releases. Used by the iFrames to check
+      description:
+        Get the hash of the media releases. Used by the iFrames to check
         updates and reload the iframe.
       parameters:
-      - description: Filter movies get from Radarr. Can be 'inCinemas', 'physical',
-          or 'digital'. Defaults to 'inCinemas'
-        example: physical
-        in: query
-        name: radarrReleaseType
-        type: string
-      - description: Specify if show unmonitored media. Defaults to false.
-        example: true
-        in: query
-        name: showUnmonitored
-        type: boolean
+        - description:
+            Filter movies get from Radarr. Can be 'inCinemas', 'physical',
+            or 'digital'. Defaults to 'inCinemas'
+          example: physical
+          in: query
+          name: radarrReleaseType
+          type: string
+        - description: Specify if show unmonitored media. Defaults to false.
+          example: true
+          in: query
+          name: showUnmonitored
+          type: boolean
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/routes.hashResponse'
+            $ref: "#/definitions/routes.hashResponse"
       summary: Get the hash of media releases
   /hash/media_requests:
     get:
-      description: Get the hash of the media requests. Used by the iFrames to check
+      description:
+        Get the hash of the media requests. Used by the iFrames to check
         updates and reload the iframe.
       parameters:
-      - description: Filter movies get from Radarr. Can be 'inCinemas', 'physical',
-          or 'digital'. Defaults to 'inCinemas'
-        example: physical
-        in: query
-        name: radarrReleaseType
-        type: string
-      - description: Specify if show unmonitored media. Defaults to false.
-        example: true
-        in: query
-        name: showUnmonitored
-        type: boolean
-      - description: If specified, only requests from that particular overseerr user
-          ID will be returned.
-        example: "1"
-        in: query
-        name: requestedByOverseerr
-        type: string
-      - description: If specified, only requests from that particular jellyseerr user
-          ID will be returned.
-        example: "1"
-        in: query
-        name: requestedByJellyseerr
-        type: string
+        - description:
+            Filter movies get from Radarr. Can be 'inCinemas', 'physical',
+            or 'digital'. Defaults to 'inCinemas'
+          example: physical
+          in: query
+          name: radarrReleaseType
+          type: string
+        - description: Specify if show unmonitored media. Defaults to false.
+          example: true
+          in: query
+          name: showUnmonitored
+          type: boolean
+        - description:
+            If specified, only requests from that particular overseerr user
+            ID will be returned.
+          example: "1"
+          in: query
+          name: requestedByOverseerr
+          type: string
+        - description:
+            If specified, only requests from that particular jellyseerr user
+            ID will be returned.
+          example: "1"
+          in: query
+          name: requestedByJellyseerr
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/routes.hashResponse'
+            $ref: "#/definitions/routes.hashResponse"
       summary: Get the hash of media requests
   /hash/uptimekuma:
     get:
-      description: Get the hash of the Uptime Kuma sites status. Used by the iFrames
+      description:
+        Get the hash of the Uptime Kuma sites status. Used by the iFrames
         to check updates and reload the iframe.
       parameters:
-      - description: You need to create a status page in Uptime Kuma and select which
-          sites/services this status page will show. While creating the status page,
-          it'll request **you** to create a slug, after creating the status page,
-          provide this slug here. This iFrame will show data only of the sites/services
-          of this specific status page!
-        example: uptime-kuma-slug
-        in: query
-        name: slug
-        required: true
-        type: string
+        - description:
+            You need to create a status page in Uptime Kuma and select which
+            sites/services this status page will show. While creating the status page,
+            it'll request **you** to create a slug, after creating the status page,
+            provide this slug here. This iFrame will show data only of the sites/services
+            of this specific status page!
+          example: uptime-kuma-slug
+          in: query
+          name: slug
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/routes.hashResponse'
+            $ref: "#/definitions/routes.hashResponse"
       summary: Get the hash of the Uptime Kuma sites status
   /hash/vikunja:
     get:
-      description: Get the hash of the Vikunja tasks. Used by the iFrames to check
+      description:
+        Get the hash of the Vikunja tasks. Used by the iFrames to check
         updates and reload the iframe.
       parameters:
-      - description: Limits the number of items in the iFrame.
-        example: 5
-        in: query
-        name: limit
-        type: integer
-      - description: 'Project ID to get tasks from. You can get it by going to the
-          project page in Vikunja, the project ID should be on the URL. Example project
-          page URL: https://vikunja.com/projects/2, the project ID is 2. Inbox tasks
-          = 1, Favorite tasks = -1.'
-        example: 1
-        in: query
-        name: project_id
-        type: integer
+        - description: Limits the number of items in the iFrame.
+          example: 5
+          in: query
+          name: limit
+          type: integer
+        - description:
+            "Project ID to get tasks from. You can get it by going to the
+            project page in Vikunja, the project ID should be on the URL. Example project
+            page URL: https://vikunja.com/projects/2, the project ID is 2. Inbox tasks
+            = 1, Favorite tasks = -1."
+          example: 1
+          in: query
+          name: project_id
+          type: integer
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/routes.hashResponse'
+            $ref: "#/definitions/routes.hashResponse"
       summary: Get the hash of the Vikunja tasks
   /health:
     get:
       description: Returns status OK
       produces:
-      - text/plain
+        - text/plain
       responses:
         "200":
           description: OK
@@ -217,39 +233,42 @@ paths:
     get:
       description: Returns an iFrame with alarms from multiple sources.
       parameters:
-      - description: Homarr theme, defaults to light. If it's different from your
-          Homarr theme, the background turns white
-        example: light
-        in: query
-        name: theme
-        type: string
-      - description: API URL used by your browser. Use by the iFrames to check any
-          update, if there is an update, the iFrame reloads. If not specified, the
-          iFrames will never try to reload.
-        example: https://sub.domain.com
-        in: query
-        name: api_url
-        required: true
-        type: string
-      - description: Limits the number of items in the iFrame.
-        example: 5
-        in: query
-        name: limit
-        type: integer
-      - description: 'Alarms to show. Available values: netdata, radarr, sonarr, prowlarr,
-          speedtest-tracker, pihole, kavita, kaizoku'
-        example: netdata,radarr,sonarr
-        in: query
-        name: alarms
-        required: true
-        type: string
-      - description: Sort alarms in descending order. Defaults to false.
-        example: false
-        in: query
-        name: sort_desc
-        type: boolean
+        - description:
+            Homarr theme, defaults to light. If it's different from your
+            Homarr theme, the background turns white
+          example: light
+          in: query
+          name: theme
+          type: string
+        - description:
+            API URL used by your browser. Use by the iFrames to check any
+            update, if there is an update, the iFrame reloads. If not specified, the
+            iFrames will never try to reload.
+          example: https://sub.domain.com
+          in: query
+          name: api_url
+          required: true
+          type: string
+        - description: Limits the number of items in the iFrame.
+          example: 5
+          in: query
+          name: limit
+          type: integer
+        - description:
+            "Alarms to show. Available values: netdata, radarr, sonarr, prowlarr,
+            speedtest-tracker, pihole, kavita, kaizoku"
+          example: netdata,radarr,sonarr
+          in: query
+          name: alarms
+          required: true
+          type: string
+        - description: Sort alarms in descending order. Defaults to false.
+          example: false
+          in: query
+          name: sort_desc
+          type: boolean
       produces:
-      - text/html
+        - text/html
       responses:
         "200":
           description: HTML content
@@ -258,38 +277,42 @@ paths:
       summary: Alarms iFrame
   /iframe/cinemark:
     get:
-      description: Returns an iFrame with the on display movies in specific Cinemark
+      description:
+        Returns an iFrame with the on display movies in specific Cinemark
         theaters. I recommend you to get the movies from the theaters of your city.
       parameters:
-      - description: 'The theater IDs to get movies from. It used to be easy to get,
-          but now it''s harder. To get it, you need to access the cinemark site, select
-          a theater, open your browser developer console, go to the '
-        example: 715, 1222, 4555
-        in: query
-        name: theaterIds
-        required: true
-        type: string
-      - description: Homarr theme, defaults to light. If it's different from your
-          Homarr theme, the background turns white
-        example: light
-        in: query
-        name: theme
-        type: string
-      - description: Limits the number of items in the iFrame.
-        example: 5
-        in: query
-        name: limit
-        type: integer
-      - description: API URL used by your browser. Use by the iFrames to check any
-          update, if there is an update, the iFrame reloads. If not specified, the
-          iFrames will never try to reload.
-        example: https://sub.domain.com
-        in: query
-        name: api_url
-        required: true
-        type: string
+        - description:
+            "The theater IDs to get movies from. It used to be easy to get,
+            but now it's harder. To get it, you need to access the cinemark site, select
+            a theater, open your browser developer console, go to the "
+          example: 715, 1222, 4555
+          in: query
+          name: theaterIds
+          required: true
+          type: string
+        - description:
+            Homarr theme, defaults to light. If it's different from your
+            Homarr theme, the background turns white
+          example: light
+          in: query
+          name: theme
+          type: string
+        - description: Limits the number of items in the iFrame.
+          example: 5
+          in: query
+          name: limit
+          type: integer
+        - description:
+            API URL used by your browser. Use by the iFrames to check any
+            update, if there is an update, the iFrame reloads. If not specified, the
+            iFrames will never try to reload.
+          example: https://sub.domain.com
+          in: query
+          name: api_url
+          required: true
+          type: string
       produces:
-      - text/html
+        - text/html
       responses:
         "200":
           description: HTML content
@@ -300,52 +323,58 @@ paths:
     get:
       description: Returns an iFrame with Linkwarden bookmarks.
       parameters:
-      - description: Get bookmarks only from this collection. You can get the collection
-          ID by going to the collection page. The ID should be on the URL. The ID
-          of the default collection **Unorganized** is 1 because the URL is https://domain.com/collections/1.
-        example: 1
-        in: query
-        name: collectionId
-        type: integer
-      - description: Homarr theme, defaults to light. If it's different from your
-          Homarr theme, the background turns white
-        example: light
-        in: query
-        name: theme
-        type: string
-      - description: Limits the number of items in the iFrame.
-        example: 5
-        in: query
-        name: limit
-        type: integer
-      - description: API URL used by your browser. Use by the iFrames to check any
-          update, if there is an update, the iFrame reloads. If not specified, the
-          iFrames will never try to reload.
-        example: https://sub.domain.com
-        in: query
-        name: api_url
-        required: true
-        type: string
-      - description: Background position of each bookmark card. Use '%25' in place
-          of '%', like '50%25 47.2%25' to get '50% 47.2%'. Defaults to 50% 47.2%.
-        example: top
-        in: query
-        name: background_position
-        type: string
-      - description: Background size of each bookmark card. Use '%25' in place of
-          '%'. Defaults to cover.
-        example: cover
-        in: query
-        name: background_size
-        type: string
-      - description: Background filter of each bookmark card. Use '%25' in place of
-          '%'. Defaults to brightness(0.3).
-        example: blur(5px
-        in: query
-        name: background_filter
-        type: string
+        - description:
+            Get bookmarks only from this collection. You can get the collection
+            ID by going to the collection page. The ID should be on the URL. The ID
+            of the default collection **Unorganized** is 1 because the URL is https://domain.com/collections/1.
+          example: 1
+          in: query
+          name: collectionId
+          type: integer
+        - description:
+            Homarr theme, defaults to light. If it's different from your
+            Homarr theme, the background turns white
+          example: light
+          in: query
+          name: theme
+          type: string
+        - description: Limits the number of items in the iFrame.
+          example: 5
+          in: query
+          name: limit
+          type: integer
+        - description:
+            API URL used by your browser. Use by the iFrames to check any
+            update, if there is an update, the iFrame reloads. If not specified, the
+            iFrames will never try to reload.
+          example: https://sub.domain.com
+          in: query
+          name: api_url
+          required: true
+          type: string
+        - description:
+            Background position of each bookmark card. Use '%25' in place
+            of '%', like '50%25 47.2%25' to get '50% 47.2%'. Defaults to 50% 47.2%.
+          example: top
+          in: query
+          name: background_position
+          type: string
+        - description:
+            Background size of each bookmark card. Use '%25' in place of
+            '%'. Defaults to cover.
+          example: cover
+          in: query
+          name: background_size
+          type: string
+        - description:
+            Background filter of each bookmark card. Use '%25' in place of
+            '%'. Defaults to brightness(0.3).
+          example: blur(5px
+          in: query
+          name: background_filter
+          type: string
       produces:
-      - text/html
+        - text/html
       responses:
         "200":
           description: HTML content
@@ -354,43 +383,48 @@ paths:
       summary: Linkwarden  bookmarks iFrame
   /iframe/media_releases:
     get:
-      description: Returns an iFrame with the media releases of today. The media releases
+      description:
+        Returns an iFrame with the media releases of today. The media releases
         are from Radarr/Sonarr.
       parameters:
-      - description: Homarr theme, defaults to light. If it's different from your
-          Homarr theme, the background turns white
-        example: light
-        in: query
-        name: theme
-        type: string
-      - description: API URL used by your browser. Use by the iFrames to check any
-          update, if there is an update, the iFrame reloads. If not specified, the
-          iFrames will never try to reload. Also used by the button to set the task
-          done, if not provided, the button will not appear.
-        example: https://sub.domain.com
-        in: query
-        name: api_url
-        required: true
-        type: string
-      - description: Filter movies get from Radarr. Can be 'inCinemas', 'physical',
-          or 'digital'. Defaults to 'inCinemas'
-        example: physical
-        in: query
-        name: radarrReleaseType
-        type: string
-      - description: Specify if show unmonitored media. Defaults to false.
-        example: true
-        in: query
-        name: showUnmonitored
-        type: boolean
-      - description: Specify if show the episodes' (Sonarr) release hour and minute.
-          Defaults to true.
-        example: false
-        in: query
-        name: showEpisodesHour
-        type: boolean
+        - description:
+            Homarr theme, defaults to light. If it's different from your
+            Homarr theme, the background turns white
+          example: light
+          in: query
+          name: theme
+          type: string
+        - description:
+            API URL used by your browser. Use by the iFrames to check any
+            update, if there is an update, the iFrame reloads. If not specified, the
+            iFrames will never try to reload. Also used by the button to set the task
+            done, if not provided, the button will not appear.
+          example: https://sub.domain.com
+          in: query
+          name: api_url
+          required: true
+          type: string
+        - description:
+            Filter movies get from Radarr. Can be 'inCinemas', 'physical',
+            or 'digital'. Defaults to 'inCinemas'
+          example: physical
+          in: query
+          name: radarrReleaseType
+          type: string
+        - description: Specify if show unmonitored media. Defaults to false.
+          example: true
+          in: query
+          name: showUnmonitored
+          type: boolean
+        - description:
+            Specify if show the episodes' (Sonarr) release hour and minute.
+            Defaults to true.
+          example: false
+          in: query
+          name: showEpisodesHour
+          type: boolean
       produces:
-      - text/html
+        - text/html
       responses:
         "200":
           description: HTML content
@@ -399,55 +433,61 @@ paths:
       summary: Media Releases
   /iframe/media_requests:
     get:
-      description: Returns an iFrame with Overseerr and Jellyseerr media requests
+      description:
+        Returns an iFrame with Overseerr and Jellyseerr media requests
         list. Returns all requests if the user's API token has the ADMIN or MANAGE_REQUESTS
         permissions. Otherwise, only the logged-in user's requests are returned.
       parameters:
-      - description: Homarr theme, defaults to light. If it's different from your
-          Homarr theme, the background turns white
-        example: light
-        in: query
-        name: theme
-        type: string
-      - description: API URL used by your browser. Use by the iFrames to check any
-          update, if there is an update, the iFrame reloads. If not specified, the
-          iFrames will never try to reload. Also used by the button to set the task
-          done, if not provided, the button will not appear.
-        example: https://sub.domain.com
-        in: query
-        name: api_url
-        required: true
-        type: string
-      - description: Limits the number of items in the iFrame.
-        example: 5
-        in: query
-        name: limit
-        type: integer
-      - description: 'Available values : all, approved, available, pending, processing,
-          unavailable, failed'
-        example: all
-        in: query
-        name: filter
-        type: string
-      - description: 'Available values : added, modified. Defaults to added'
-        example: added
-        in: query
-        name: sort
-        type: string
-      - description: If specified, only requests from that particular overseerr user
-          ID will be returned.
-        example: "1"
-        in: query
-        name: requestedByOverseerr
-        type: string
-      - description: If specified, only requests from that particular jellyseerr user
-          ID will be returned.
-        example: "1"
-        in: query
-        name: requestedByJellyseerr
-        type: string
+        - description:
+            Homarr theme, defaults to light. If it's different from your
+            Homarr theme, the background turns white
+          example: light
+          in: query
+          name: theme
+          type: string
+        - description:
+            API URL used by your browser. Use by the iFrames to check any
+            update, if there is an update, the iFrame reloads. If not specified, the
+            iFrames will never try to reload. Also used by the button to set the task
+            done, if not provided, the button will not appear.
+          example: https://sub.domain.com
+          in: query
+          name: api_url
+          required: true
+          type: string
+        - description: Limits the number of items in the iFrame.
+          example: 5
+          in: query
+          name: limit
+          type: integer
+        - description:
+            "Available values : all, approved, available, pending, processing,
+            unavailable, failed"
+          example: all
+          in: query
+          name: filter
+          type: string
+        - description: "Available values : added, modified. Defaults to added"
+          example: added
+          in: query
+          name: sort
+          type: string
+        - description:
+            If specified, only requests from that particular overseerr user
+            ID will be returned.
+          example: "1"
+          in: query
+          name: requestedByOverseerr
+          type: string
+        - description:
+            If specified, only requests from that particular jellyseerr user
+            ID will be returned.
+          example: "1"
+          in: query
+          name: requestedByJellyseerr
+          type: string
       produces:
-      - text/html
+        - text/html
       responses:
         "200":
           description: HTML content
@@ -458,7 +498,7 @@ paths:
     get:
       description: Returns a message saying that this iFrame is not implemented anymore.
       produces:
-      - text/html
+        - text/html
       responses:
         "200":
           description: HTML content
@@ -467,49 +507,54 @@ paths:
       summary: Netdata iFrame
   /iframe/overseerr:
     get:
-      description: Returns an iFrame with Overseerr media requests list. Returns all
+      description:
+        Returns an iFrame with Overseerr media requests list. Returns all
         requests if the user's API token has the ADMIN or MANAGE_REQUESTS permissions.
         Otherwise, only the logged-in user's requests are returned.
       parameters:
-      - description: Homarr theme, defaults to light. If it's different from your
-          Homarr theme, the background turns white
-        example: light
-        in: query
-        name: theme
-        type: string
-      - description: API URL used by your browser. Use by the iFrames to check any
-          update, if there is an update, the iFrame reloads. If not specified, the
-          iFrames will never try to reload. Also used by the button to set the task
-          done, if not provided, the button will not appear.
-        example: https://sub.domain.com
-        in: query
-        name: api_url
-        required: true
-        type: string
-      - description: Limits the number of items in the iFrame.
-        example: 5
-        in: query
-        name: limit
-        type: integer
-      - description: 'Available values : all, approved, available, pending, processing,
-          unavailable, failed'
-        example: all
-        in: query
-        name: filter
-        type: string
-      - description: 'Available values : added, modified. Defaults to added'
-        example: added
-        in: query
-        name: sort
-        type: string
-      - description: If specified, only requests from that particular user ID will
-          be returned.
-        example: "1"
-        in: query
-        name: requestedBy
-        type: string
+        - description:
+            Homarr theme, defaults to light. If it's different from your
+            Homarr theme, the background turns white
+          example: light
+          in: query
+          name: theme
+          type: string
+        - description:
+            API URL used by your browser. Use by the iFrames to check any
+            update, if there is an update, the iFrame reloads. If not specified, the
+            iFrames will never try to reload. Also used by the button to set the task
+            done, if not provided, the button will not appear.
+          example: https://sub.domain.com
+          in: query
+          name: api_url
+          required: true
+          type: string
+        - description: Limits the number of items in the iFrame.
+          example: 5
+          in: query
+          name: limit
+          type: integer
+        - description:
+            "Available values : all, approved, available, pending, processing,
+            unavailable, failed"
+          example: all
+          in: query
+          name: filter
+          type: string
+        - description: "Available values : added, modified. Defaults to added"
+          example: added
+          in: query
+          name: sort
+          type: string
+        - description:
+            If specified, only requests from that particular user ID will
+            be returned.
+          example: "1"
+          in: query
+          name: requestedBy
+          type: string
       produces:
-      - text/html
+        - text/html
       responses:
         "200":
           description: HTML content
@@ -520,42 +565,45 @@ paths:
     get:
       description: Returns an iFrame with Uptime Kuma sites overview.
       parameters:
-      - description: You need to create a status page in Uptime Kuma and select which
-          sites/services this status page will show. While creating the status page,
-          it'll request **you** to create a slug, after creating the status page,
-          provide this slug here. This iFrame will show data only of the sites/services
-          of this specific status page!
-        example: uptime-kuma-slug
-        in: query
-        name: slug
-        required: true
-        type: string
-      - description: Homarr theme, defaults to light. If it's different from your
-          Homarr theme, the background turns white
-        example: light
-        in: query
-        name: theme
-        type: string
-      - description: API URL used by your browser. Use by the iFrames to check any
-          update, if there is an update, the iFrame reloads. If not specified, the
-          iFrames will never try to reload.
-        example: https://sub.domain.com
-        in: query
-        name: api_url
-        required: true
-        type: string
-      - description: Show the title 'Uptime Kuma' on the iFrame.
-        example: true
-        in: query
-        name: showTitle
-        type: boolean
-      - description: Orientation of the containers, defaults to horizontal.
-        example: vertical
-        in: query
-        name: orientation
-        type: string
+        - description:
+            You need to create a status page in Uptime Kuma and select which
+            sites/services this status page will show. While creating the status page,
+            it'll request **you** to create a slug, after creating the status page,
+            provide this slug here. This iFrame will show data only of the sites/services
+            of this specific status page!
+          example: uptime-kuma-slug
+          in: query
+          name: slug
+          required: true
+          type: string
+        - description:
+            Homarr theme, defaults to light. If it's different from your
+            Homarr theme, the background turns white
+          example: light
+          in: query
+          name: theme
+          type: string
+        - description:
+            API URL used by your browser. Use by the iFrames to check any
+            update, if there is an update, the iFrame reloads. If not specified, the
+            iFrames will never try to reload.
+          example: https://sub.domain.com
+          in: query
+          name: api_url
+          required: true
+          type: string
+        - description: Show the title 'Uptime Kuma' on the iFrame.
+          example: true
+          in: query
+          name: showTitle
+          type: boolean
+        - description: Orientation of the containers, defaults to horizontal.
+          example: vertical
+          in: query
+          name: orientation
+          type: string
       produces:
-      - text/html
+        - text/html
       responses:
         "200":
           description: HTML content
@@ -564,94 +612,108 @@ paths:
       summary: Uptime Kuma iFrame
   /iframe/vikunja:
     get:
-      description: 'Returns an iFrame with not done Vikunja tasks. Uses a custom sort/order:
+      description:
+        "Returns an iFrame with not done Vikunja tasks. Uses a custom sort/order:
         due date (asc); end date (asc); priority (desc); created date (desc). When
-        the due/end date is today, the date color will be orange, if it''s past due,
-        the date color will be red.'
+        the due/end date is today, the date color will be orange, if it's past due,
+        the date color will be red."
       parameters:
-      - description: Homarr theme, defaults to light. If it's different from your
-          Homarr theme, the background turns white
-        example: light
-        in: query
-        name: theme
-        type: string
-      - description: Limits the number of items in the iFrame.
-        example: 5
-        in: query
-        name: limit
-        type: integer
-      - description: 'Project ID to get tasks from. You can get it by going to the
-          project page in Vikunja, the project ID should be on the URL. Example project
-          page URL: https://vikunja.com/projects/2, the project ID is 2. Inbox tasks
-          = 1, Favorite tasks = -1.'
-        example: 1
-        in: query
-        name: project_id
-        type: integer
-      - description: 'Project IDs to NOT get tasks from. You can get it by going to
-          the project page in Vikunja, the project ID should be on the URL. Example
-          project page URL: https://vikunja.com/projects/2, the project ID is 2. Inbox
-          tasks = 1, Favorite tasks = -1.'
-        example: 1,5,7
-        in: query
-        name: exclude_project_ids
-        type: string
-      - description: API URL used by your browser. Use by the iFrames to check any
-          update, if there is an update, the iFrame reloads. If not specified, the
-          iFrames will never try to reload. Also used by the button to set the task
-          done, if not provided, the button will not appear (the button doesn't appear
-          in repeating tasks.)
-        example: https://sub.domain.com
-        in: query
-        name: api_url
-        required: true
-        type: string
-      - description: Shows the tasks' created date. Defaults to true.
-        example: false
-        in: query
-        name: showCreated
-        type: boolean
-      - description: Shows the tasks' due/end date and repeating dates. Defaults to
-          true.
-        example: false
-        in: query
-        name: showDue
-        type: boolean
-      - description: Shows the tasks' priority. Defaults to true.
-        example: false
-        in: query
-        name: showPriority
-        type: boolean
-      - description: Shows the tasks' project. Defaults to true.
-        example: false
-        in: query
-        name: showProject
-        type: boolean
-      - description: Shows a start icon in favorite tasks. Defaults to true.
-        example: false
-        in: query
-        name: showFavoriteIcon
-        type: boolean
-      - description: Background position of each task card. Use '%25' in place of
-          '%', like '50%25 47.2%25' to get '50% 47.2%'. Defaults to 50% 49.5%.
-        example: top
-        in: query
-        name: background_position
-        type: string
-      - description: Background size of each task card. Use '%25' in place of '%'.
-          Defaults to 105%.
-        example: 105%25
-        in: query
-        name: background_size
-        type: string
-      - description: Background filter of each task card. Use '%25' in place of '%'.
-          Defaults to brightness(0.3).
-        example: blur(5px
-        in: query
-        name: background_filter
-        type: string
+        - description:
+            Homarr theme, defaults to light. If it's different from your
+            Homarr theme, the background turns white
+          example: light
+          in: query
+          name: theme
+          type: string
+        - description: Limits the number of items in the iFrame.
+          example: 5
+          in: query
+          name: limit
+          type: integer
+        - description:
+            "Project ID to get tasks from. You can get it by going to the
+            project page in Vikunja, the project ID should be on the URL. Example project
+            page URL: https://vikunja.com/projects/2, the project ID is 2. Inbox tasks
+            = 1, Favorite tasks = -1."
+          example: 1
+          in: query
+          name: project_id
+          type: integer
+        - description:
+            "Project IDs to NOT get tasks from. You can get it by going to
+            the project page in Vikunja, the project ID should be on the URL. Example
+            project page URL: https://vikunja.com/projects/2, the project ID is 2. Inbox
+            tasks = 1, Favorite tasks = -1."
+          example: 1,5,7
+          in: query
+          name: exclude_project_ids
+          type: string
+        - description:
+            API URL used by your browser. Use by the iFrames to check any
+            update, if there is an update, the iFrame reloads. If not specified, the
+            iFrames will never try to reload. Also used by the button to set the task
+            done, if not provided, the button will not appear (the button doesn't appear
+            in repeating tasks.)
+          example: https://sub.domain.com
+          in: query
+          name: api_url
+          required: true
+          type: string
+        - description: Shows the tasks' created date. Defaults to true.
+          example: false
+          in: query
+          name: showCreated
+          type: boolean
+        - description:
+            Shows the tasks' due/end date and repeating dates. Defaults to
+            true.
+          example: false
+          in: query
+          name: showDue
+          type: boolean
+        - description: Shows the tasks' priority. Defaults to true.
+          example: false
+          in: query
+          name: showPriority
+          type: boolean
+        - description: Shows the tasks' project. Defaults to true.
+          example: false
+          in: query
+          name: showProject
+          type: boolean
+        - description: Shows a compact view of the tasks in the iframe. Defaults to false.
+          example: true
+          in: query
+          name: showCompact
+          type: boolean
+        - description: Shows a start icon in favorite tasks. Defaults to true.
+          example: false
+          in: query
+          name: showFavoriteIcon
+          type: boolean
+        - description:
+            Background position of each task card. Use '%25' in place of
+            '%', like '50%25 47.2%25' to get '50% 47.2%'. Defaults to 50% 49.5%.
+          example: top
+          in: query
+          name: background_position
+          type: string
+        - description:
+            Background size of each task card. Use '%25' in place of '%'.
+            Defaults to 105%.
+          example: 105%25
+          in: query
+          name: background_size
+          type: string
+        - description:
+            Background filter of each task card. Use '%25' in place of '%'.
+            Defaults to brightness(0.3).
+          example: blur(5px
+          in: query
+          name: background_filter
+          type: string
       produces:
-      - text/html
+        - text/html
       responses:
         "200":
           description: HTML content
@@ -662,18 +724,18 @@ paths:
     patch:
       description: Set a Vikunja task as done.
       parameters:
-      - description: The task ID.
-        example: 1
-        in: query
-        name: taskId
-        required: true
-        type: integer
+        - description: The task ID.
+          example: 1
+          in: query
+          name: taskId
+          required: true
+          type: integer
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: Task done
           schema:
-            $ref: '#/definitions/routes.messsageResponse'
+            $ref: "#/definitions/routes.messsageResponse"
       summary: Set Vikunja task done
 swagger: "2.0"

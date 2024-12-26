@@ -787,6 +787,13 @@ const docTemplate = `{
                     },
                     {
                         "type": "boolean",
+                        "example": true,
+                        "description": "Shows a compact view of the tasks in the iframe. Defaults to false.",
+                        "name": "showCompact",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
                         "example": false,
                         "description": "Shows a start icon in favorite tasks. Defaults to true.",
                         "name": "showFavoriteIcon",

@@ -1,862 +1,833 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "contact": {}
-    },
-    "paths": {
-        "/hash/alarms": {
-            "get": {
-                "description": "Get the hash of the alarms. Used by the iFrames to check updates and reload the iframe.",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Get the hash of the alarms",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "example": 5,
-                        "description": "Limits the number of items in the iFrame.",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "netdata,radarr,sonarr",
-                        "description": "Alarms to show. Available values: netdata, radarr, sonarr, prowlarr, speedtest-tracker, pihole, kavita, kaizoku",
-                        "name": "alarms",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "boolean",
-                        "example": false,
-                        "description": "Sort alarms in descending order. Defaults to false.",
-                        "name": "sort_desc",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/routes.hashResponse"
-                        }
-                    }
-                }
+  "swagger": "2.0",
+  "info": {
+    "contact": {}
+  },
+  "paths": {
+    "/hash/alarms": {
+      "get": {
+        "description": "Get the hash of the alarms. Used by the iFrames to check updates and reload the iframe.",
+        "produces": ["application/json"],
+        "summary": "Get the hash of the alarms",
+        "parameters": [
+          {
+            "type": "integer",
+            "example": 5,
+            "description": "Limits the number of items in the iFrame.",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "netdata,radarr,sonarr",
+            "description": "Alarms to show. Available values: netdata, radarr, sonarr, prowlarr, speedtest-tracker, pihole, kavita, kaizoku",
+            "name": "alarms",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "boolean",
+            "example": false,
+            "description": "Sort alarms in descending order. Defaults to false.",
+            "name": "sort_desc",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/routes.hashResponse"
             }
-        },
-        "/hash/cinemark": {
-            "get": {
-                "description": "Get the hash of the Cinemark movies. Used by the iFrames to check updates and reload the iframe.",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Get the hash of the Cinemark movies",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "715, 1222, 4555",
-                        "description": "The theater IDs to get movies from. It used to be easy to get, but now it's harder. To get it, you need to access the cinemark site, select a theater, open your browser developer console, go to the ",
-                        "name": "theaterIds",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "example": 5,
-                        "description": "Limits the number of items in the iFrame.",
-                        "name": "limit",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/routes.hashResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/hash/linkwarden": {
-            "get": {
-                "description": "Get the hash of the Linkwarden bookmarks. Used by the iFrames to check updates and reload the iframe.",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Get the hash of the Linkwarden bookmarks",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "example": 1,
-                        "description": "Get bookmarks only from this collection. You can get the collection ID by going to the collection page. The ID should be on the URL. The ID of the default collection **Unorganized** is 1 because the URL is https://domain.com/collections/1.",
-                        "name": "collectionId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "example": 5,
-                        "description": "Limits the number of items in the iFrame.",
-                        "name": "limit",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/routes.hashResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/hash/media_releases": {
-            "get": {
-                "description": "Get the hash of the media releases. Used by the iFrames to check updates and reload the iframe.",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Get the hash of media releases",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "physical",
-                        "description": "Filter movies get from Radarr. Can be 'inCinemas', 'physical', or 'digital'. Defaults to 'inCinemas'",
-                        "name": "radarrReleaseType",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "example": true,
-                        "description": "Specify if show unmonitored media. Defaults to false.",
-                        "name": "showUnmonitored",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/routes.hashResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/hash/media_requests": {
-            "get": {
-                "description": "Get the hash of the media requests. Used by the iFrames to check updates and reload the iframe.",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Get the hash of media requests",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "physical",
-                        "description": "Filter movies get from Radarr. Can be 'inCinemas', 'physical', or 'digital'. Defaults to 'inCinemas'",
-                        "name": "radarrReleaseType",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "example": true,
-                        "description": "Specify if show unmonitored media. Defaults to false.",
-                        "name": "showUnmonitored",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "1",
-                        "description": "If specified, only requests from that particular overseerr user ID will be returned.",
-                        "name": "requestedByOverseerr",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "1",
-                        "description": "If specified, only requests from that particular jellyseerr user ID will be returned.",
-                        "name": "requestedByJellyseerr",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/routes.hashResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/hash/uptimekuma": {
-            "get": {
-                "description": "Get the hash of the Uptime Kuma sites status. Used by the iFrames to check updates and reload the iframe.",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Get the hash of the Uptime Kuma sites status",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "uptime-kuma-slug",
-                        "description": "You need to create a status page in Uptime Kuma and select which sites/services this status page will show. While creating the status page, it'll request **you** to create a slug, after creating the status page, provide this slug here. This iFrame will show data only of the sites/services of this specific status page!",
-                        "name": "slug",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/routes.hashResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/hash/vikunja": {
-            "get": {
-                "description": "Get the hash of the Vikunja tasks. Used by the iFrames to check updates and reload the iframe.",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Get the hash of the Vikunja tasks",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "example": 5,
-                        "description": "Limits the number of items in the iFrame.",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "example": 1,
-                        "description": "Project ID to get tasks from. You can get it by going to the project page in Vikunja, the project ID should be on the URL. Example project page URL: https://vikunja.com/projects/2, the project ID is 2. Inbox tasks = 1, Favorite tasks = -1.",
-                        "name": "project_id",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/routes.hashResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/health": {
-            "get": {
-                "description": "Returns status OK",
-                "produces": [
-                    "text/plain"
-                ],
-                "summary": "Health check route",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/iframe/alarms": {
-            "get": {
-                "description": "Returns an iFrame with alarms from multiple sources.",
-                "produces": [
-                    "text/html"
-                ],
-                "summary": "Alarms iFrame",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "light",
-                        "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
-                        "name": "theme",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "https://sub.domain.com",
-                        "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload.",
-                        "name": "api_url",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "example": 5,
-                        "description": "Limits the number of items in the iFrame.",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "netdata,radarr,sonarr",
-                        "description": "Alarms to show. Available values: netdata, radarr, sonarr, prowlarr, speedtest-tracker, pihole, kavita, kaizoku",
-                        "name": "alarms",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "boolean",
-                        "example": false,
-                        "description": "Sort alarms in descending order. Defaults to false.",
-                        "name": "sort_desc",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "HTML content",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/iframe/cinemark": {
-            "get": {
-                "description": "Returns an iFrame with the on display movies in specific Cinemark theaters. I recommend you to get the movies from the theaters of your city.",
-                "produces": [
-                    "text/html"
-                ],
-                "summary": "Cinemark Brazil iFrame",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "715, 1222, 4555",
-                        "description": "The theater IDs to get movies from. It used to be easy to get, but now it's harder. To get it, you need to access the cinemark site, select a theater, open your browser developer console, go to the ",
-                        "name": "theaterIds",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "example": "light",
-                        "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
-                        "name": "theme",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "example": 5,
-                        "description": "Limits the number of items in the iFrame.",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "https://sub.domain.com",
-                        "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload.",
-                        "name": "api_url",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "HTML content",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/iframe/linkwarden": {
-            "get": {
-                "description": "Returns an iFrame with Linkwarden bookmarks.",
-                "produces": [
-                    "text/html"
-                ],
-                "summary": "Linkwarden  bookmarks iFrame",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "example": 1,
-                        "description": "Get bookmarks only from this collection. You can get the collection ID by going to the collection page. The ID should be on the URL. The ID of the default collection **Unorganized** is 1 because the URL is https://domain.com/collections/1.",
-                        "name": "collectionId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "light",
-                        "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
-                        "name": "theme",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "example": 5,
-                        "description": "Limits the number of items in the iFrame.",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "https://sub.domain.com",
-                        "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload.",
-                        "name": "api_url",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "example": "top",
-                        "description": "Background position of each bookmark card. Use '%25' in place of '%', like '50%25 47.2%25' to get '50% 47.2%'. Defaults to 50% 47.2%.",
-                        "name": "background_position",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "cover",
-                        "description": "Background size of each bookmark card. Use '%25' in place of '%'. Defaults to cover.",
-                        "name": "background_size",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "blur(5px",
-                        "description": "Background filter of each bookmark card. Use '%25' in place of '%'. Defaults to brightness(0.3).",
-                        "name": "background_filter",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "HTML content",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/iframe/media_releases": {
-            "get": {
-                "description": "Returns an iFrame with the media releases of today. The media releases are from Radarr/Sonarr.",
-                "produces": [
-                    "text/html"
-                ],
-                "summary": "Media Releases",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "light",
-                        "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
-                        "name": "theme",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "https://sub.domain.com",
-                        "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload. Also used by the button to set the task done, if not provided, the button will not appear.",
-                        "name": "api_url",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "example": "physical",
-                        "description": "Filter movies get from Radarr. Can be 'inCinemas', 'physical', or 'digital'. Defaults to 'inCinemas'",
-                        "name": "radarrReleaseType",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "example": true,
-                        "description": "Specify if show unmonitored media. Defaults to false.",
-                        "name": "showUnmonitored",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "example": false,
-                        "description": "Specify if show the episodes' (Sonarr) release hour and minute. Defaults to true.",
-                        "name": "showEpisodesHour",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "HTML content",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/iframe/media_requests": {
-            "get": {
-                "description": "Returns an iFrame with Overseerr and Jellyseerr media requests list. Returns all requests if the user's API token has the ADMIN or MANAGE_REQUESTS permissions. Otherwise, only the logged-in user's requests are returned.",
-                "produces": [
-                    "text/html"
-                ],
-                "summary": "Overseerr and Jellyseerr Media Requests",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "light",
-                        "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
-                        "name": "theme",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "https://sub.domain.com",
-                        "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload. Also used by the button to set the task done, if not provided, the button will not appear.",
-                        "name": "api_url",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "example": 5,
-                        "description": "Limits the number of items in the iFrame.",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "all",
-                        "description": "Available values : all, approved, available, pending, processing, unavailable, failed",
-                        "name": "filter",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "added",
-                        "description": "Available values : added, modified. Defaults to added",
-                        "name": "sort",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "1",
-                        "description": "If specified, only requests from that particular overseerr user ID will be returned.",
-                        "name": "requestedByOverseerr",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "1",
-                        "description": "If specified, only requests from that particular jellyseerr user ID will be returned.",
-                        "name": "requestedByJellyseerr",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "HTML content",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/iframe/netdata": {
-            "get": {
-                "description": "Returns a message saying that this iFrame is not implemented anymore.",
-                "produces": [
-                    "text/html"
-                ],
-                "summary": "Netdata iFrame",
-                "responses": {
-                    "200": {
-                        "description": "HTML content",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/iframe/overseerr": {
-            "get": {
-                "description": "Returns an iFrame with Overseerr media requests list. Returns all requests if the user's API token has the ADMIN or MANAGE_REQUESTS permissions. Otherwise, only the logged-in user's requests are returned.",
-                "produces": [
-                    "text/html"
-                ],
-                "summary": "Overseerr Media Requests",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "light",
-                        "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
-                        "name": "theme",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "https://sub.domain.com",
-                        "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload. Also used by the button to set the task done, if not provided, the button will not appear.",
-                        "name": "api_url",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "example": 5,
-                        "description": "Limits the number of items in the iFrame.",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "all",
-                        "description": "Available values : all, approved, available, pending, processing, unavailable, failed",
-                        "name": "filter",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "added",
-                        "description": "Available values : added, modified. Defaults to added",
-                        "name": "sort",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "1",
-                        "description": "If specified, only requests from that particular user ID will be returned.",
-                        "name": "requestedBy",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "HTML content",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/iframe/uptimekuma": {
-            "get": {
-                "description": "Returns an iFrame with Uptime Kuma sites overview.",
-                "produces": [
-                    "text/html"
-                ],
-                "summary": "Uptime Kuma iFrame",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "uptime-kuma-slug",
-                        "description": "You need to create a status page in Uptime Kuma and select which sites/services this status page will show. While creating the status page, it'll request **you** to create a slug, after creating the status page, provide this slug here. This iFrame will show data only of the sites/services of this specific status page!",
-                        "name": "slug",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "example": "light",
-                        "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
-                        "name": "theme",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "https://sub.domain.com",
-                        "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload.",
-                        "name": "api_url",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "boolean",
-                        "example": true,
-                        "description": "Show the title 'Uptime Kuma' on the iFrame.",
-                        "name": "showTitle",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "vertical",
-                        "description": "Orientation of the containers, defaults to horizontal.",
-                        "name": "orientation",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "HTML content",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/iframe/vikunja": {
-            "get": {
-                "description": "Returns an iFrame with not done Vikunja tasks. Uses a custom sort/order: due date (asc); end date (asc); priority (desc); created date (desc). When the due/end date is today, the date color will be orange, if it's past due, the date color will be red.",
-                "produces": [
-                    "text/html"
-                ],
-                "summary": "Vikunja tasks iFrame",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "light",
-                        "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
-                        "name": "theme",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "example": 5,
-                        "description": "Limits the number of items in the iFrame.",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "example": 1,
-                        "description": "Project ID to get tasks from. You can get it by going to the project page in Vikunja, the project ID should be on the URL. Example project page URL: https://vikunja.com/projects/2, the project ID is 2. Inbox tasks = 1, Favorite tasks = -1.",
-                        "name": "project_id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "1,5,7",
-                        "description": "Project IDs to NOT get tasks from. You can get it by going to the project page in Vikunja, the project ID should be on the URL. Example project page URL: https://vikunja.com/projects/2, the project ID is 2. Inbox tasks = 1, Favorite tasks = -1.",
-                        "name": "exclude_project_ids",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "https://sub.domain.com",
-                        "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload. Also used by the button to set the task done, if not provided, the button will not appear (the button doesn't appear in repeating tasks.)",
-                        "name": "api_url",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "boolean",
-                        "example": false,
-                        "description": "Shows the tasks' created date. Defaults to true.",
-                        "name": "showCreated",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "example": false,
-                        "description": "Shows the tasks' due/end date and repeating dates. Defaults to true.",
-                        "name": "showDue",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "example": false,
-                        "description": "Shows the tasks' priority. Defaults to true.",
-                        "name": "showPriority",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "example": false,
-                        "description": "Shows the tasks' project. Defaults to true.",
-                        "name": "showProject",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "example": false,
-                        "description": "Shows a start icon in favorite tasks. Defaults to true.",
-                        "name": "showFavoriteIcon",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "top",
-                        "description": "Background position of each task card. Use '%25' in place of '%', like '50%25 47.2%25' to get '50% 47.2%'. Defaults to 50% 49.5%.",
-                        "name": "background_position",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "105%25",
-                        "description": "Background size of each task card. Use '%25' in place of '%'. Defaults to 105%.",
-                        "name": "background_size",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "blur(5px",
-                        "description": "Background filter of each task card. Use '%25' in place of '%'. Defaults to brightness(0.3).",
-                        "name": "background_filter",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "HTML content",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/iframe/vikunja/set_task_done": {
-            "patch": {
-                "description": "Set a Vikunja task as done.",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Set Vikunja task done",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "example": 1,
-                        "description": "The task ID.",
-                        "name": "taskId",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Task done",
-                        "schema": {
-                            "$ref": "#/definitions/routes.messsageResponse"
-                        }
-                    }
-                }
-            }
+          }
         }
+      }
     },
-    "definitions": {
-        "routes.hashResponse": {
-            "type": "object",
-            "properties": {
-                "hash": {
-                    "type": "string"
-                }
+    "/hash/cinemark": {
+      "get": {
+        "description": "Get the hash of the Cinemark movies. Used by the iFrames to check updates and reload the iframe.",
+        "produces": ["application/json"],
+        "summary": "Get the hash of the Cinemark movies",
+        "parameters": [
+          {
+            "type": "string",
+            "example": "715, 1222, 4555",
+            "description": "The theater IDs to get movies from. It used to be easy to get, but now it's harder. To get it, you need to access the cinemark site, select a theater, open your browser developer console, go to the ",
+            "name": "theaterIds",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "example": 5,
+            "description": "Limits the number of items in the iFrame.",
+            "name": "limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/routes.hashResponse"
             }
-        },
-        "routes.messsageResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
+          }
         }
+      }
+    },
+    "/hash/linkwarden": {
+      "get": {
+        "description": "Get the hash of the Linkwarden bookmarks. Used by the iFrames to check updates and reload the iframe.",
+        "produces": ["application/json"],
+        "summary": "Get the hash of the Linkwarden bookmarks",
+        "parameters": [
+          {
+            "type": "integer",
+            "example": 1,
+            "description": "Get bookmarks only from this collection. You can get the collection ID by going to the collection page. The ID should be on the URL. The ID of the default collection **Unorganized** is 1 because the URL is https://domain.com/collections/1.",
+            "name": "collectionId",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "example": 5,
+            "description": "Limits the number of items in the iFrame.",
+            "name": "limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/routes.hashResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hash/media_releases": {
+      "get": {
+        "description": "Get the hash of the media releases. Used by the iFrames to check updates and reload the iframe.",
+        "produces": ["application/json"],
+        "summary": "Get the hash of media releases",
+        "parameters": [
+          {
+            "type": "string",
+            "example": "physical",
+            "description": "Filter movies get from Radarr. Can be 'inCinemas', 'physical', or 'digital'. Defaults to 'inCinemas'",
+            "name": "radarrReleaseType",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "example": true,
+            "description": "Specify if show unmonitored media. Defaults to false.",
+            "name": "showUnmonitored",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/routes.hashResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hash/media_requests": {
+      "get": {
+        "description": "Get the hash of the media requests. Used by the iFrames to check updates and reload the iframe.",
+        "produces": ["application/json"],
+        "summary": "Get the hash of media requests",
+        "parameters": [
+          {
+            "type": "string",
+            "example": "physical",
+            "description": "Filter movies get from Radarr. Can be 'inCinemas', 'physical', or 'digital'. Defaults to 'inCinemas'",
+            "name": "radarrReleaseType",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "example": true,
+            "description": "Specify if show unmonitored media. Defaults to false.",
+            "name": "showUnmonitored",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "1",
+            "description": "If specified, only requests from that particular overseerr user ID will be returned.",
+            "name": "requestedByOverseerr",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "1",
+            "description": "If specified, only requests from that particular jellyseerr user ID will be returned.",
+            "name": "requestedByJellyseerr",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/routes.hashResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hash/uptimekuma": {
+      "get": {
+        "description": "Get the hash of the Uptime Kuma sites status. Used by the iFrames to check updates and reload the iframe.",
+        "produces": ["application/json"],
+        "summary": "Get the hash of the Uptime Kuma sites status",
+        "parameters": [
+          {
+            "type": "string",
+            "example": "uptime-kuma-slug",
+            "description": "You need to create a status page in Uptime Kuma and select which sites/services this status page will show. While creating the status page, it'll request **you** to create a slug, after creating the status page, provide this slug here. This iFrame will show data only of the sites/services of this specific status page!",
+            "name": "slug",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/routes.hashResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hash/vikunja": {
+      "get": {
+        "description": "Get the hash of the Vikunja tasks. Used by the iFrames to check updates and reload the iframe.",
+        "produces": ["application/json"],
+        "summary": "Get the hash of the Vikunja tasks",
+        "parameters": [
+          {
+            "type": "integer",
+            "example": 5,
+            "description": "Limits the number of items in the iFrame.",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "example": 1,
+            "description": "Project ID to get tasks from. You can get it by going to the project page in Vikunja, the project ID should be on the URL. Example project page URL: https://vikunja.com/projects/2, the project ID is 2. Inbox tasks = 1, Favorite tasks = -1.",
+            "name": "project_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/routes.hashResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "description": "Returns status OK",
+        "produces": ["text/plain"],
+        "summary": "Health check route",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/iframe/alarms": {
+      "get": {
+        "description": "Returns an iFrame with alarms from multiple sources.",
+        "produces": ["text/html"],
+        "summary": "Alarms iFrame",
+        "parameters": [
+          {
+            "type": "string",
+            "example": "light",
+            "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
+            "name": "theme",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "https://sub.domain.com",
+            "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload.",
+            "name": "api_url",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "example": 5,
+            "description": "Limits the number of items in the iFrame.",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "netdata,radarr,sonarr",
+            "description": "Alarms to show. Available values: netdata, radarr, sonarr, prowlarr, speedtest-tracker, pihole, kavita, kaizoku",
+            "name": "alarms",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "boolean",
+            "example": false,
+            "description": "Sort alarms in descending order. Defaults to false.",
+            "name": "sort_desc",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTML content",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/iframe/cinemark": {
+      "get": {
+        "description": "Returns an iFrame with the on display movies in specific Cinemark theaters. I recommend you to get the movies from the theaters of your city.",
+        "produces": ["text/html"],
+        "summary": "Cinemark Brazil iFrame",
+        "parameters": [
+          {
+            "type": "string",
+            "example": "715, 1222, 4555",
+            "description": "The theater IDs to get movies from. It used to be easy to get, but now it's harder. To get it, you need to access the cinemark site, select a theater, open your browser developer console, go to the ",
+            "name": "theaterIds",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "example": "light",
+            "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
+            "name": "theme",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "example": 5,
+            "description": "Limits the number of items in the iFrame.",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "https://sub.domain.com",
+            "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload.",
+            "name": "api_url",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTML content",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/iframe/linkwarden": {
+      "get": {
+        "description": "Returns an iFrame with Linkwarden bookmarks.",
+        "produces": ["text/html"],
+        "summary": "Linkwarden  bookmarks iFrame",
+        "parameters": [
+          {
+            "type": "integer",
+            "example": 1,
+            "description": "Get bookmarks only from this collection. You can get the collection ID by going to the collection page. The ID should be on the URL. The ID of the default collection **Unorganized** is 1 because the URL is https://domain.com/collections/1.",
+            "name": "collectionId",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "light",
+            "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
+            "name": "theme",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "example": 5,
+            "description": "Limits the number of items in the iFrame.",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "https://sub.domain.com",
+            "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload.",
+            "name": "api_url",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "example": "top",
+            "description": "Background position of each bookmark card. Use '%25' in place of '%', like '50%25 47.2%25' to get '50% 47.2%'. Defaults to 50% 47.2%.",
+            "name": "background_position",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "cover",
+            "description": "Background size of each bookmark card. Use '%25' in place of '%'. Defaults to cover.",
+            "name": "background_size",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "blur(5px",
+            "description": "Background filter of each bookmark card. Use '%25' in place of '%'. Defaults to brightness(0.3).",
+            "name": "background_filter",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTML content",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/iframe/media_releases": {
+      "get": {
+        "description": "Returns an iFrame with the media releases of today. The media releases are from Radarr/Sonarr.",
+        "produces": ["text/html"],
+        "summary": "Media Releases",
+        "parameters": [
+          {
+            "type": "string",
+            "example": "light",
+            "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
+            "name": "theme",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "https://sub.domain.com",
+            "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload. Also used by the button to set the task done, if not provided, the button will not appear.",
+            "name": "api_url",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "example": "physical",
+            "description": "Filter movies get from Radarr. Can be 'inCinemas', 'physical', or 'digital'. Defaults to 'inCinemas'",
+            "name": "radarrReleaseType",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "example": true,
+            "description": "Specify if show unmonitored media. Defaults to false.",
+            "name": "showUnmonitored",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "example": false,
+            "description": "Specify if show the episodes' (Sonarr) release hour and minute. Defaults to true.",
+            "name": "showEpisodesHour",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTML content",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/iframe/media_requests": {
+      "get": {
+        "description": "Returns an iFrame with Overseerr and Jellyseerr media requests list. Returns all requests if the user's API token has the ADMIN or MANAGE_REQUESTS permissions. Otherwise, only the logged-in user's requests are returned.",
+        "produces": ["text/html"],
+        "summary": "Overseerr and Jellyseerr Media Requests",
+        "parameters": [
+          {
+            "type": "string",
+            "example": "light",
+            "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
+            "name": "theme",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "https://sub.domain.com",
+            "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload. Also used by the button to set the task done, if not provided, the button will not appear.",
+            "name": "api_url",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "example": 5,
+            "description": "Limits the number of items in the iFrame.",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "all",
+            "description": "Available values : all, approved, available, pending, processing, unavailable, failed",
+            "name": "filter",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "added",
+            "description": "Available values : added, modified. Defaults to added",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "1",
+            "description": "If specified, only requests from that particular overseerr user ID will be returned.",
+            "name": "requestedByOverseerr",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "1",
+            "description": "If specified, only requests from that particular jellyseerr user ID will be returned.",
+            "name": "requestedByJellyseerr",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTML content",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/iframe/netdata": {
+      "get": {
+        "description": "Returns a message saying that this iFrame is not implemented anymore.",
+        "produces": ["text/html"],
+        "summary": "Netdata iFrame",
+        "responses": {
+          "200": {
+            "description": "HTML content",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/iframe/overseerr": {
+      "get": {
+        "description": "Returns an iFrame with Overseerr media requests list. Returns all requests if the user's API token has the ADMIN or MANAGE_REQUESTS permissions. Otherwise, only the logged-in user's requests are returned.",
+        "produces": ["text/html"],
+        "summary": "Overseerr Media Requests",
+        "parameters": [
+          {
+            "type": "string",
+            "example": "light",
+            "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
+            "name": "theme",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "https://sub.domain.com",
+            "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload. Also used by the button to set the task done, if not provided, the button will not appear.",
+            "name": "api_url",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "example": 5,
+            "description": "Limits the number of items in the iFrame.",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "all",
+            "description": "Available values : all, approved, available, pending, processing, unavailable, failed",
+            "name": "filter",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "added",
+            "description": "Available values : added, modified. Defaults to added",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "1",
+            "description": "If specified, only requests from that particular user ID will be returned.",
+            "name": "requestedBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTML content",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/iframe/uptimekuma": {
+      "get": {
+        "description": "Returns an iFrame with Uptime Kuma sites overview.",
+        "produces": ["text/html"],
+        "summary": "Uptime Kuma iFrame",
+        "parameters": [
+          {
+            "type": "string",
+            "example": "uptime-kuma-slug",
+            "description": "You need to create a status page in Uptime Kuma and select which sites/services this status page will show. While creating the status page, it'll request **you** to create a slug, after creating the status page, provide this slug here. This iFrame will show data only of the sites/services of this specific status page!",
+            "name": "slug",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "example": "light",
+            "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
+            "name": "theme",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "https://sub.domain.com",
+            "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload.",
+            "name": "api_url",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "boolean",
+            "example": true,
+            "description": "Show the title 'Uptime Kuma' on the iFrame.",
+            "name": "showTitle",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "vertical",
+            "description": "Orientation of the containers, defaults to horizontal.",
+            "name": "orientation",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTML content",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/iframe/vikunja": {
+      "get": {
+        "description": "Returns an iFrame with not done Vikunja tasks. Uses a custom sort/order: due date (asc); end date (asc); priority (desc); created date (desc). When the due/end date is today, the date color will be orange, if it's past due, the date color will be red.",
+        "produces": ["text/html"],
+        "summary": "Vikunja tasks iFrame",
+        "parameters": [
+          {
+            "type": "string",
+            "example": "light",
+            "description": "Homarr theme, defaults to light. If it's different from your Homarr theme, the background turns white",
+            "name": "theme",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "example": 5,
+            "description": "Limits the number of items in the iFrame.",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "example": 1,
+            "description": "Project ID to get tasks from. You can get it by going to the project page in Vikunja, the project ID should be on the URL. Example project page URL: https://vikunja.com/projects/2, the project ID is 2. Inbox tasks = 1, Favorite tasks = -1.",
+            "name": "project_id",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "1,5,7",
+            "description": "Project IDs to NOT get tasks from. You can get it by going to the project page in Vikunja, the project ID should be on the URL. Example project page URL: https://vikunja.com/projects/2, the project ID is 2. Inbox tasks = 1, Favorite tasks = -1.",
+            "name": "exclude_project_ids",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "https://sub.domain.com",
+            "description": "API URL used by your browser. Use by the iFrames to check any update, if there is an update, the iFrame reloads. If not specified, the iFrames will never try to reload. Also used by the button to set the task done, if not provided, the button will not appear (the button doesn't appear in repeating tasks.)",
+            "name": "api_url",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "boolean",
+            "example": false,
+            "description": "Shows the tasks' created date. Defaults to true.",
+            "name": "showCreated",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "example": false,
+            "description": "Shows the tasks' due/end date and repeating dates. Defaults to true.",
+            "name": "showDue",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "example": false,
+            "description": "Shows the tasks' priority. Defaults to true.",
+            "name": "showPriority",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "example": false,
+            "description": "Shows the tasks' project. Defaults to true.",
+            "name": "showProject",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "example": true,
+            "description": "Shows a compact view of the tasks in the iframe. Defaults to false.",
+            "name": "showCompact",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "example": false,
+            "description": "Shows a start icon in favorite tasks. Defaults to true.",
+            "name": "showFavoriteIcon",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "top",
+            "description": "Background position of each task card. Use '%25' in place of '%', like '50%25 47.2%25' to get '50% 47.2%'. Defaults to 50% 49.5%.",
+            "name": "background_position",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "105%25",
+            "description": "Background size of each task card. Use '%25' in place of '%'. Defaults to 105%.",
+            "name": "background_size",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "blur(5px",
+            "description": "Background filter of each task card. Use '%25' in place of '%'. Defaults to brightness(0.3).",
+            "name": "background_filter",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTML content",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/iframe/vikunja/set_task_done": {
+      "patch": {
+        "description": "Set a Vikunja task as done.",
+        "produces": ["application/json"],
+        "summary": "Set Vikunja task done",
+        "parameters": [
+          {
+            "type": "integer",
+            "example": 1,
+            "description": "The task ID.",
+            "name": "taskId",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task done",
+            "schema": {
+              "$ref": "#/definitions/routes.messsageResponse"
+            }
+          }
+        }
+      }
     }
+  },
+  "definitions": {
+    "routes.hashResponse": {
+      "type": "object",
+      "properties": {
+        "hash": {
+          "type": "string"
+        }
+      }
+    },
+    "routes.messsageResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
 }
