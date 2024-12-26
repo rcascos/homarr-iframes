@@ -491,7 +491,8 @@ func (v *Vikunja) getTasksiFrame(tasks []*Task, theme, backgroundImgURL, backgro
                         <span class="info-label" style="color: {{ getTimeColor .DueDate }};"><i class="fa-solid fa-calendar-days"></i> Due: {{ .DueDate.Format "Jan 2, 2006" }}</span>
                     {{ else if not .EndDate.IsZero }}
                         <span class="info-label" style="color: {{ getTimeColor .EndDate }};"><i class="fa-solid fa-calendar-days"></i> End: {{ .EndDate.Format "Jan 2, 2006" }}</span>
-                    {{ else if or (ne .RepeatAfter 0) (ne .RepeatMode 0) }}
+                    {{ end }}
+                    {{ if or (ne .RepeatAfter 0) (ne .RepeatMode 0) }}
                         {{ if or (eq .RepeatMode 0) (eq .RepeatMode 2) }}
                             <span class="info-label"><i class="fa-solid fa-calendar-days"></i> Repeats every {{ getRepeatAfter .RepeatAfter }}</span>
                         {{ else if eq .RepeatMode 1 }}
