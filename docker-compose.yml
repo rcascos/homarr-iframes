@@ -1,10 +1,14 @@
 version: "3"
 
 services:
-  homarr-iframes:
+  homarr-iframes-vk:
     container_name: homarr-iframes
-    image: ghcr.io/diogovalentte/homarr-iframes:latest
+    image: homarr-iframes
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"    
     user: 1000:1000
+    build:
+      context: .
     environment:
       - TZ=${TZ:-UTC} # uses UTC if not specified
       - PORT=${PORT:-8080} # uses port 8080 if not specified
@@ -56,11 +60,17 @@ services:
       
       - KAIZOKU_ADDRESS=${KAIZOKU_ADDRESS:-}
       - INTERNAL_KAIZOKU_ADDRESS=${INTERNAL_KAIZOKU_ADDRESS:-}
+    networks:
+      - npm
     logging:
       driver: "json-file"
       options:
         max-file: "5"
         max-size: "10m"
     ports:
-      - 8080:8080
+      - 38081:8080
     restart: on-failure
+
+networks:
+  npm:
+    external: true
