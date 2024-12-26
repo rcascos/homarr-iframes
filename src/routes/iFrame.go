@@ -98,12 +98,22 @@ func VikunjaiFrameHandler(c *gin.Context) {
 // @Success 200 {object} messsageResponse "Task done"
 // @Produce json
 // @Param taskId query int true "The task ID." Example(1)
+// @Param taskRepeatAfter query int false "The task Repeat After value." Example(86400)
+// @Param taskRepeatMode query int false "The task Repeat Mode value." Example(0)
 // @Router /iframe/vikunja/set_task_done [patch]
 func VikunjaSetTaskDoneHandler(c *gin.Context) {
 	taskIDStr := c.Query("taskId")
+	taskRepeatAfterStr := c.Query("taskRepeatAfter")
+	taskRepeatModeStr := c.Query("taskRepeatMode")
 	if taskIDStr == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "taskId is required"})
 		return
+	}
+	if taskRepeatAfterStr == "" {
+		taskRepeatAfterStr = "0"
+	}
+	if taskRepeatModeStr == "" {
+		taskRepeatModeStr = "0"
 	}
 
 	taskID, err := strconv.Atoi(taskIDStr)
@@ -111,12 +121,22 @@ func VikunjaSetTaskDoneHandler(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "taskId must be an integer"})
 	}
 
+	taskRepeatAfter, err := strconv.Atoi(taskRepeatAfterStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "taskRepeatAfter must be an integer"})
+	}
+
+	taskRepeatMode, err := strconv.Atoi(taskRepeatModeStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "taskRepeatMode must be an integer"})
+	}
+
 	v, err := vikunja.New()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		return
 	}
-	err = v.SetTaskDone(taskID)
+	err = v.SetTaskDone(taskID, taskRepeatAfter, taskRepeatMode)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 	}

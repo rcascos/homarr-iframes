@@ -799,6 +799,22 @@
             "name": "taskId",
             "in": "query",
             "required": true
+          },
+          {
+            "type": "integer",
+            "example": 86400,
+            "description": "The task Repeat After value.",
+            "name": "taskRepeatAfter",
+            "in": "query",
+            "required": false
+          },
+          {
+            "type": "integer",
+            "example": 0,
+            "description": "The task Repeat Mode value.",
+            "name": "taskRepeatMode",
+            "in": "query",
+            "required": false
           }
         ],
         "responses": {

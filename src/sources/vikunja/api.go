@@ -120,9 +120,16 @@ func (v *Vikunja) getTasksV1(limit int, projectID int) ([]*Task, error) {
 	return tasks, nil
 }
 
-func (v *Vikunja) SetTaskDone(taskID int) error {
+func (v *Vikunja) SetTaskDone(taskID int, taskRepeatAfter int, taskRepeatMode int) error {
 	path := "/api/v1/tasks/" + strconv.Itoa(taskID)
 	body := []byte(`{"done": true}`)
+	if taskRepeatAfter > 0 && taskRepeatMode > 0 {
+		body = []byte(`{"done": true, "repeat_after": ` + strconv.Itoa(taskRepeatAfter) + `, "repeat_mode": ` + strconv.Itoa(taskRepeatMode) + `}`)
+	} else if taskRepeatMode > 0 {
+		body = []byte(`{"done": true, "repeat_mode": ` + strconv.Itoa(taskRepeatMode) + `}`)
+	} else {
+		body = []byte(`{"done": true, "repeat_after": ` + strconv.Itoa(taskRepeatAfter) + `}`)
+	}
 	task := &Task{}
 
 	err := v.baseRequest("POST", v.InternalAddress+path, bytes.NewBuffer(body), task)
@@ -130,7 +137,7 @@ func (v *Vikunja) SetTaskDone(taskID int) error {
 		return err
 	}
 
-	if !task.Done {
+	if !task.Done && taskRepeatAfter == 0 && taskRepeatMode == 0 {
 		return fmt.Errorf("task not done")
 	}
 

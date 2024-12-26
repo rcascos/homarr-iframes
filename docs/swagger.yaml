@@ -730,6 +730,18 @@ paths:
           name: taskId
           required: true
           type: integer
+        - description: The task Repeat After value.
+          example: 86400
+          in: query
+          name: taskRepeatAfter
+          required: false
+          type: integer
+        - description: The task Repeat Mode value.
+          example: 0
+          in: query
+          name: taskRepeatMode
+          required: false
+          type: integer
       produces:
         - application/json
       responses:

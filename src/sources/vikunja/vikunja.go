@@ -294,7 +294,7 @@ func (v *Vikunja) getTasksiFrame(tasks []*Task, theme, backgroundImgURL, backgro
         }
 
         .tasks-container.tasks-container-compact {
-            height: 46px;
+            height: inherit;
             margin-bottom: 3px;
         }
 
@@ -384,6 +384,10 @@ func (v *Vikunja) getTasksiFrame(tasks []*Task, theme, backgroundImgURL, backgro
             text-align: center;
         }
 
+		.tasks-container-compact .set-task-done-container {
+			margin: 10px;
+		}
+
         .set-task-done-button {
             color: white;
             background-color: #04c9b7;
@@ -431,10 +435,10 @@ func (v *Vikunja) getTasksiFrame(tasks []*Task, theme, backgroundImgURL, backgro
     </script>
 
     <script>
-      function setTaskDone(taskId) {
+      function setTaskDone(taskId, taskRepeatAfter, taskRepeatMode) {
         try {
             var xhr = new XMLHttpRequest();
-            var url = '{{ .APIURL }}/v1/iframe/vikunja/set_task_done?taskId=' + encodeURIComponent(taskId);
+			var url = '{{ .APIURL }}/v1/iframe/vikunja/set_task_done?taskId=' + encodeURIComponent(taskId) + '&taskRepeatAfter=' + encodeURIComponent(taskRepeatAfter) + '&taskRepeatMode=' + encodeURIComponent(taskRepeatMode);
             xhr.open('PATCH', url, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
 
@@ -530,9 +534,9 @@ func (v *Vikunja) getTasksiFrame(tasks []*Task, theme, backgroundImgURL, backgro
 
         </div>
 
-        {{ with . }}{{ if and ($.APIURL) (and (eq .RepeatAfter 0) (eq .RepeatMode 0)) }}
+        {{ with . }}{{ if $.APIURL }}
             <div class="set-task-done-container">
-                <button id="task-{{ .ID }}" onclick="setTaskDone('{{ .ID }}')" class="set-task-done-button" onmouseenter="this.style.cursor='pointer';">Done</button>
+				<button id="task-{{ .ID }}" onclick="setTaskDone('{{ .ID }}', '{{ .RepeatAfter }}', '{{ .RepeatMode }}')" class="set-task-done-button" onmouseenter="this.style.cursor='pointer';">Done</button>
             </div>
         {{ end }}{{ end }}
 
